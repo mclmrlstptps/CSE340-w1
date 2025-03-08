@@ -4,3 +4,46 @@
 *:after {
   box-sizing: border-box;
 }
+
+h1 {
+  text-align: center;
+  color: black;
+}
+
+h1, h2, h3 {
+  font-family: 'Anta', sans-serif;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #F6F1E8;
+  color: #03040E;
+}
+
+/* Feature car CSS */
+.feature-car {
+  position: relative;
+}
+
+.car-details {
+  position: absolute;
+  background-color: rgba(246, 241, 232, 0.8);
+  padding: 1rem;
+  max-width: 200px;
+  border: solid #A10003 4px;
+  border-radius: 15%;
+}
+
+.own-today {
+  background-color: rgba(91, 117, 152, 0.8);
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 120px;
+  font-weight: bolder;
+}
+.own-today:hover {
+  border: #A10003;
+  background-color: rgba(91, 117, 152, 0.5);
+}
+
