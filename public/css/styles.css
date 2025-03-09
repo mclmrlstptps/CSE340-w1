@@ -5,6 +5,24 @@
   box-sizing: border-box;
 }
 
+header {
+  background-color: #A6B5C9;
+  font-family: 'Open Sans', sans-serif;
+}
+
+nav {
+  background-color: #A6B5C9;
+  font-family: "Anta", sans-serif;
+
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 h1 {
   text-align: center;
   color: black;
@@ -16,18 +34,31 @@ h1, h2, h3 {
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: #F6F1E8;
+  background-color: white;
   color: #03040E;
+  border: #A10003 solid 10px;
+  border-radius: 4%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  padding: 10px;
 }
 
 /* Feature car CSS */
 .feature-car {
   position: relative;
 }
+.feature-car img {
+  display: block;
+  width: 100%;
+}
 
 .car-details {
   position: absolute;
-  background-color: rgba(246, 241, 232, 0.8);
+  top: 0;
+  left: 0;
+  background-color: RGB(250, 250, 250, 0.7);
   padding: 1rem;
   max-width: 200px;
   border: solid #A10003 4px;
@@ -47,3 +78,75 @@ body {
   background-color: rgba(91, 117, 152, 0.5);
 }
 
+/* Content Section */
+.content-sections {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+}
+
+/* Upgrades */
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.upgrade-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: #A10003 solid 3px;
+}
+
+.upgrade-item img {
+  width: 100%;
+  max-width: 150px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.upgrade-item a {
+  font-weight: bold;
+}
+
+/* Reviews */
+.reviews h2 {
+  text-align: center;
+}
+
+.reviews li {
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .content-sections {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .upgrades {
+    flex: 1;
+  }
+
+  .reviews {
+    flex: 1;
+  }
+
+  /* For screens that are wide enough to fit the entire car image properly */
+  .feature-car {
+    margin-bottom: 2rem;
+  }
+
+  .car-details {
+    width: 25%;
+    padding: 1.5rem;
+  }
+}
