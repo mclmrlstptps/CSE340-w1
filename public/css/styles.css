@@ -5,64 +5,121 @@
   box-sizing: border-box;
 }
 
+.page-container {
+  background-color: white;
+  border-radius: 5%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 header {
-  background-color: #A6B5C9;
+  font-family: 'Open Sans', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+}
+
+.siteName {
+  font-size: 32px;
+  font-family: 'Anta', sans-serif;
+  margin-left: 20px;
+}
+
+.siteName a {
+  text-decoration: none;
+  color: #03040E;
+}
+
+#tools {
   font-family: 'Open Sans', sans-serif;
 }
 
-nav {
-  background-color: #A6B5C9;
-  font-family: "Anta", sans-serif;
+#tools a {
+  text-decoration: none;
+  margin-right: 20px;
+  color: #03040E;
+}
 
+nav {
+  font-family: "Anta", sans-serif;
+  width: calc(100% - 25px);
+  margin-bottom: 1rem;
+  background-color: #03040E;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+nav ul {
+  display: inline-flex;
+  list-style-type: none;
+
+}
+
+nav li {
+  color: white;
+  margin: 0 10px;
 }
 
 main {
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-  text-align: center;
+  text-align: left;
   color: black;
+  font-size: 50px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: 'Anta', sans-serif;
 }
 
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: white;
+  background-image: url('/images/site/small_check.jpg');
+  background-repeat: repeat;
   color: #03040E;
   border: #A10003 solid 10px;
-  border-radius: 4%;
+  border-radius: 6%;
   margin-left: 10%;
   margin-right: 10%;
   margin-top: 5%;
   margin-bottom: 5%;
-  padding: 10px;
 }
 
 /* Feature car CSS */
 .feature-car {
   position: relative;
+  margin-bottom: 2rem;
+  overflow: hidden;
 }
+
 .feature-car img {
-  display: block;
   width: 100%;
+  height: auto;
+  display: block;
 }
 
 .car-details {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 5%;
+  left: 5%;
   background-color: RGB(250, 250, 250, 0.7);
   padding: 1rem;
-  max-width: 200px;
   border: solid #A10003 4px;
   border-radius: 15%;
+  max-width: 200px;
+  z-index: 1;
+  font-weight: bold
 }
 
 .own-today {
@@ -73,6 +130,7 @@ body {
   max-width: 120px;
   font-weight: bolder;
 }
+
 .own-today:hover {
   border: #A10003;
   background-color: rgba(91, 117, 152, 0.5);
@@ -80,9 +138,9 @@ body {
 
 /* Content Section */
 .content-sections {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 /* Upgrades */
@@ -90,7 +148,12 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.5rem; */
+}
+
+.upgrades,
+.reviews {
+  width: 100%;
 }
 
 .upgrade-item {
@@ -121,32 +184,81 @@ body {
   margin-bottom: 0.5rem;
 }
 
-@media screen and (min-width: 768px) {
-  .main-content {
-    max-width: 1200px;
-    margin: 0 auto;
+footer {
+  margin-left: 25px;
+}
+
+
+@media screen and (min-width:738px) {
+
+  .siteName {
+    margin-left: 30px;
+  }
+
+  #tools {
+    margin-right: 30px;
   }
 
   .content-sections {
     display: flex;
-    gap: 2rem;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   .upgrades {
-    flex: 1;
+    width: 48%;
   }
 
   .reviews {
-    flex: 1;
+    width: 48%;
   }
 
-  /* For screens that are wide enough to fit the entire car image properly */
-  .feature-car {
-    margin-bottom: 2rem;
+  .feature-car img {
+    max-width: 100%;
   }
 
   .car-details {
-    width: 25%;
-    padding: 1.5rem;
+    top: 15%;
+    left: 7%;
   }
+
+  .h2 {
+    text-align: left;
+  }
+
+}
+
+@media screen and (max-width: 767px) {
+
+  body {
+    background-image: none;
+    background-color: white;
+  }
+
+  .content-sections {
+    flex-direction: column;
+  }
+
+  .car-details {
+    top: 5%;
+    left: 5%;
+    max-width: 180px;
+  }
+
+  .upgrade-grid {
+    gap: 0.5rem;
+  }
+
+  .upgrade-item img {
+    max-width: 100px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .reviews h2, .upgrades h2 {
+    text-align: center;
+  }
+
 }
