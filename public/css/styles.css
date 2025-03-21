@@ -188,6 +188,56 @@ footer {
   margin-left: 25px;
 }
 
+/* Inventory display styles */
+#inv-display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 0;
+}
+
+#inv-display li {
+  flex-basis: 100%;
+  margin-bottom: 1em;
+  border: 3px solid #A10003;
+  border-radius: 5px;
+  padding: 1em;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#inv-display a {
+  text-decoration: none;
+  color: black;
+}
+
+#inv-display img {
+  width: 100%;
+  height: auto;
+}
+
+.namePrice {
+  text-align: center;
+}
+
+.namePrice h2 {
+  margin: 0.5em 0;
+}
+
+.namePrice span {
+  display: block;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #A10003;
+}
+
+.notice {
+  margin: 1em;
+  padding: 1em;
+  background-color: white;
+  border-left: 5px solid #A10003;
+}
+
 
 @media screen and (min-width:738px) {
 
@@ -226,7 +276,13 @@ footer {
     text-align: left;
   }
 
+  #inv-display li {
+    flex-basis: 48%;
+  }
+
 }
+
+
 
 @media screen and (max-width: 767px) {
 
@@ -259,6 +315,10 @@ footer {
 
   .reviews h2, .upgrades h2 {
     text-align: center;
+  }
+
+  #inv-display li {
+    flex-basis: 31%;
   }
 
 }
