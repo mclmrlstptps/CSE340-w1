@@ -1,0 +1,62 @@
+<!-- Heading section -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+
+<!-- Message section -->
+<%# messages() %>
+
+<!-- Vehicle details section -->
+ <div class="vehicle-detail-container">
+    <!-- Images -->
+    <div class="vehicle-image">
+        <img src="<%= vehicle.inv_image %>" alt="Image of <%= vehicle.inv_make %> <%= vehicle.inv_model %>">
+    </div>
+
+     <!-- Info section -->
+    <div class="vehicle-info-container">
+          <div class="vehicle-price">
+              <h2>$<%= new Intl.NumberFormat('en-US').format(vehicle.inv_price)%></h2>
+          </div>
+      
+
+      <div class="vehicle-primary-details">
+          <p class="year-make-model"><%= vehicle.inv_year %> <%= vehicle.inv_make %> <%= vehicle.inv_model %></p>
+          <p class="mileage"><strong>Mileage:</strong> <%= new Intl.NumberFormat('en-US').format(vehicle.inv_miles) %></p>
+        </div>
+
+      <div class="vehicle-description">
+          <h3>Description</h3>
+          <p><%= vehicle.inv_description %></p>
+      </div>
+
+      <div class="vehicle-specs">
+          <h3>Vehicle Details</h3>
+          <table>
+            <tr>
+              <td><strong>Color:</strong></td>
+              <td><%= vehicle.inv_color %></td>
+            </tr>
+            <tr>
+              <td><strong>Interior Color:</strong></td>
+              <td><%= vehicle.inv_interior %></td>
+            </tr>
+            <tr>
+              <td><strong>Transmission:</strong></td>
+              <td><%= vehicle.inv_transmission %></td>
+            </tr>
+            <tr>
+              <td><strong>Engine:</strong></td>
+              <td><%= vehicle.inv_engine %></td>
+            </tr>
+            <tr>
+              <td><strong>Body Style:</strong></td>
+              <td><%= vehicle.classification_name %></td>
+            </tr>
+          </table>
+      </div>    
+  </div> 
+ </div>

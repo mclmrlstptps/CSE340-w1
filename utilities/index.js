@@ -60,4 +60,44 @@ Util.buildClassificationGrid = async function (data) {
     return grid
 }
 
+
+/* **************************************
+* Build the vehicle detail view HTML
+* ************************************ */
+Util.buildVehicleHTML = async function (vehicle) {
+    let html = ""
+    if (vehicle) {
+        html = '<div class="vehicle-detail">'
+
+        html += '<div class="vehicle-img">'
+        html += `<img src="${vehicle.inv_imgage}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">`
+        html += '</div>'
+
+        html += 'div class="vehicle-info">'
+
+        html += `<p class="vehicle-price">$${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>`
+
+        html += '<div class="vehicle-specs">'
+        html += `<p><span>Year:</span> ${vehicle.inv_year}</p>`
+        html += `<p><span>Make:</span> ${vehicle.inv_make}</p>`
+        html += `<p><span>model:</span> ${vehicle.inv_model}</p>`
+        html += `<p><span>Milage:</span> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)}</p>`
+        html += `<p><span>Color:</span> ${vehicle.inv_color}</p>`
+        html += '</div>'
+
+        html += '</div>'
+        html += '</div>'
+    } else {
+        html += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    }
+    return html
+}
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 module.exports = Util
+
