@@ -1,0 +1,48 @@
+<div class="login-container">
+  <h1><%- title %></h1>
+
+  <% if (messages) { %>
+    <% if (typeof messages==='object' && Object.keys(messages).length> 0) { %>
+      <div class="notice">
+        <% Object.values(messages).forEach(message=> { %>
+          <p>
+            <%= message %>
+          </p>
+          <% }) %>
+      </div>
+      <% } else if (typeof messages==='string' && messages.length> 0) { %>
+        <div class="notice">
+          <p>
+            <%= messages %>
+          </p>
+        </div>
+        <% } %>
+          <% } %>
+
+            <form id="loginForm" action="/account/login" method="post">
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="account_email"
+                  pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="account_password"
+                  pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+              </div>
+              <div class="form-group">
+                <label for="requirements">Password must be:<br>
+                  12 characters in length, minimum<br>
+                  contain at least 1 capital letter<br>
+                  contain at least 1 number<br>
+                  contain at least 1 special character
+                </label>
+
+                <div class="form-group">
+                  <button type="submit">Login</button>
+                </div>
+            </form>
+
+            <p>No account? <a href="/account/registration">Sign-up</a></p>
+</div>

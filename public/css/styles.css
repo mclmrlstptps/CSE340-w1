@@ -316,13 +316,58 @@ footer {
 .error-image {
   max-width: 100%;
   height: auto;
-  width: 600px; /* Adjust as needed */
+  width: 600px; 
   display: block;
   margin: 0 auto;
 }
 
 .error-container {
   font-size: 2rem;
+}
+
+/* Login Styles */
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group button {
+  background-color: #4c96d7;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-group button:hover {
+  background-color: #3a75a9;
+}
+
+.notice {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
 }
 
 
