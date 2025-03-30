@@ -1,0 +1,22 @@
+<!-- views/inventory/management.ejs
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/navigation') %> -->
+
+<div class="main-content">
+  <h1>Inventory Management</h1>
+  
+  <% if (messages) { %>
+    <div class="flash-message">
+      <p>Message type: <%= typeof messages %></p>
+      <p>Message content: <%= JSON.stringify(messages) %></p>
+    </div>
+  <% } %>
+  
+  <div class="management-links">
+    <p><a href="/inv/add-classification" class="btn">Add New Classification</a></p>
+    <p><a href="/inv/add-inventory" class="btn">Add New Inventory Item</a></p>
+  </div>
+</div>
+
+<!-- <%- include('../partials/footer') %> -->
