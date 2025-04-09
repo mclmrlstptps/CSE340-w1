@@ -1,0 +1,187 @@
+<div class="main-content">
+    <h1>Edit Vehicle</h1>
+    <% if (messages) { %>
+        <div class="flash-message">
+            <% if (typeof messages==='object' ) { %>
+                <% Object.keys(messages).forEach(function(type) { %>
+                    <% messages[type].forEach(function(message) { %>
+                        <p>
+                            <%= message %>
+                        </p>
+                        <% }) %>
+                            <% }) %>
+                                <% } %>
+        </div>
+        <% } %>
+            <% if (errors) { %>
+                <ul class="notice errors">
+                    <% errors.array().forEach(error=> { %>
+                        <li>
+                            <%= error.msg %>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } %>
+                    <form id="editInventoryForm" action="/inv/edit-inventory" method="post">
+                        <input type="hidden" name="inv_id" value="<%= inv_id%>"
+                        <div class="form-group">
+                            <label for="classification_id">Classification:</label>
+                            <%- classificationList %>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inv_make">Make:</label>
+                            <input type="text" id="inv_make" name="inv_make" required
+                                value="<%= locals.inv_make ? inv_make : '' %>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inv_model">Model:</label>
+                            <input type="text" id="inv_model" name="inv_model" required
+                                value="<%= locals.inv_model ? inv_model : '' %>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inv_description">Description:</label>
+                            <textarea id="inv_description" name="inv_description"
+                                required><%= locals.inv_description ? inv_description : '' %></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inv_image">Image Path:</label>
+                            <input type="text" id="inv_image" name="inv_image" required
+                                value="<%= locals.inv_image ? inv_image : '/images/vehicles/no-image.png' %>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inv_thumbnail">Thumbnail Path:</label>
+                            <input type="text" id="inv_thumbnail" name="inv_thumbnail" required
+                                value="<%= locals.inv_thumbnail ? inv_thumbnail : '/images/vehicles/no-image-tn.png' %>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inv_price">Price:</label>
+                            <input type="number" id="inv_price" name="inv_price" min="0" step="0.01" required
+                                value="<%= locals.inv_price ? inv_price : '' %>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inv_year">Year:</label>
+                            <input type="number" id="inv_year" name="inv_year" min="1900" max="2099" required
+                                value="<%= locals.inv_year ? inv_year : '' %>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inv_miles">Miles:</label>
+                            <input type="number" id="inv_miles" name="inv_miles" min="0" required
+                                value="<%= locals.inv_miles ? inv_miles : '' %>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inv_color">Color:</label>
+                            <input type="text" id="inv_color" name="inv_color" required
+                                value="<%= locals.inv_color ? inv_color : '' %>">
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit">Modify Inventory Item</button>
+                            <input type="hidden" name="inv_id"
+                            <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+                            <% } %>>
+                        </div>
+                    </form>
+</div>
+<%- include('../partials/footer') %>
+    <script>
+        // Client-side validation
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("addInventoryForm");
+
+            form.addEventListener("submit", function (event) {
+                let hasError = false;
+
+                // Make validation
+                const makeInput = document.getElementById("inv_make");
+                if (makeInput.value.length < 3) {
+                    event.preventDefault();
+                    hasError = true;
+                    addErrorMessage(makeInput, "Make must be at least 3 characters");
+                }
+
+                // Model validation
+                const modelInput = document.getElementById("inv_model");
+                if (modelInput.value.length < 3) {
+                    event.preventDefault();
+                    hasError = true;
+                    addErrorMessage(modelInput, "Model must be at least 3 characters");
+                }
+
+                // Description validation
+                const descInput = document.getElementById("inv_description");
+                if (descInput.value.length < 20) {
+                    event.preventDefault();
+                    hasError = true;
+                    addErrorMessage(descInput, "Description must be at least 20 characters");
+                }
+
+                // Price validation
+                const priceInput = document.getElementById("inv_price");
+                if (isNaN(priceInput.value) || parseFloat(priceInput.value) <= 0) {
+                    event.preventDefault();
+                    hasError = true;
+                    addErrorMessage(priceInput, "Price must be a positive number");
+                }
+
+                // Year validation
+                const yearInput = document.getElementById("inv_year");
+                const year = parseInt(yearInput.value);
+                if (isNaN(year) || year < 1900 || year > 2099) {
+                    event.preventDefault();
+                    hasError = true;
+                    addErrorMessage(yearInput, "Year must be between 1900 and 2099");
+                }
+
+                // Miles validation
+                const milesInput = document.getElementById("inv_miles");
+                if (isNaN(milesInput.value) || parseInt(milesInput.value) < 0) {
+                    event.preventDefault();
+                    hasError = true;
+                    addErrorMessage(milesInput, "Miles must be a non-negative number");
+                }
+
+                // Color validation
+                const colorInput = document.getElementById("inv_color");
+                if (colorInput.value.length < 3) {
+                    event.preventDefault();
+                    hasError = true;
+                    addErrorMessage(colorInput, "Color must be at least 3 characters");
+                }
+
+                // Helper function to add error messages
+                function addErrorMessage(inputElement, message) {
+                    // Check if error message already exists
+                    let errorSpan = inputElement.nextElementSibling;
+                    if (!errorSpan || !errorSpan.classList.contains("error-message")) {
+                        errorSpan = document.createElement("span");
+                        errorSpan.className = "error-message";
+                        inputElement.parentNode.insertBefore(errorSpan, inputElement.nextSibling);
+                    }
+                    errorSpan.textContent = message;
+                    inputElement.focus();
+                }
+
+                // Clear any existing error messages when input changes
+                if (hasError) {
+                    const inputs = form.querySelectorAll("input, textarea, select");
+                    inputs.forEach(input => {
+                        input.addEventListener("input", function () {
+                            const errorSpan = this.nextElementSibling;
+                            if (errorSpan && errorSpan.classList.contains("error-message")) {
+                                errorSpan.textContent = "";
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    </script>

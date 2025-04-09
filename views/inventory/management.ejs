@@ -5,18 +5,27 @@
 
 <div class="main-content">
   <h1>Inventory Management</h1>
-  
+
   <% if (messages) { %>
     <div class="flash-message">
-      <p>Message type: <%= typeof messages %></p>
-      <p>Message content: <%= JSON.stringify(messages) %></p>
+      <p>Message type: <%= typeof messages %>
+      </p>
+      <p>Message content: <%= JSON.stringify(messages) %>
+      </p>
     </div>
-  <% } %>
+    <% } %>
+
+      <div class="management-links">
+        <p><a href="/inv/add-classification" class="btn">Add New Classification</a></p>
+        <p><a href="/inv/add-inventory" class="btn">Add New Inventory Item</a></p>
+        <h2>Manage Inventory</h2>
+        <p>Select Classification from the list</p>
+        <label for="classification_id">Classification:</label>
   
-  <div class="management-links">
-    <p><a href="/inv/add-classification" class="btn">Add New Classification</a></p>
-    <p><a href="/inv/add-inventory" class="btn">Add New Inventory Item</a></p>
-  </div>
+        <table id="inventoryDisplay"></table>
+        <noscript>JavaScript must be enabled to use this page.</noscript>
+      </div>
 </div>
 
 <!-- <%- include('../partials/footer') %> -->
+ <script src="/js/inventory.js"></script>

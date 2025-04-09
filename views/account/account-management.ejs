@@ -1,0 +1,22 @@
+<div class="logged-in">
+  <h1><%- title %></h1>
+
+  <% if (messages) { %>
+    <% if (typeof messages==='object' && Object.keys(messages).length> 0) { %>
+      <div class="notice">
+        <% Object.values(messages).forEach(message=> { %>
+          <p>
+            <%= message %>
+          </p>
+          <% }) %>
+      </div>
+      <% } else if (typeof messages==='string' && messages.length> 0) { %>
+        <div class="notice">
+          <p>
+            <%= messages %>
+          </p>
+        </div>
+        <% } %>
+          <% } %>
+            <h1>You're Logged In</h1>
+</div>
