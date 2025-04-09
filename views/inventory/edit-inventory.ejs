@@ -22,8 +22,8 @@
                         <% }) %>
                 </ul>
                 <% } %>
-                    <form id="editInventoryForm" action="/inv/edit-inventory" method="post">
-                        <input type="hidden" name="inv_id" value="<%= inv_id%>"
+                    <form id="updateForm" action="/inv/edit" method="post">
+                        <input type="hidden" name="inv_id" value="<%= inv_id %>">
                         <div class="form-group">
                             <label for="classification_id">Classification:</label>
                             <%- classificationList %>
@@ -84,18 +84,16 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="submit">Modify Inventory Item</button>
-                            <input type="hidden" name="inv_id"
-                            <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
-                            <% } %>>
+                            <button type="submit" disabled>Modify Inventory Item</button>
                         </div>
                     </form>
 </div>
 <%- include('../partials/footer') %>
-    <script>
+<script src="/js/inv-update.js"></script>
+    <!-- <script>
         // Client-side validation
         document.addEventListener("DOMContentLoaded", function () {
-            const form = document.getElementById("addInventoryForm");
+            const form = document.getElementById("editInventoryForm");
 
             form.addEventListener("submit", function (event) {
                 let hasError = false;
@@ -184,4 +182,4 @@
                 }
             });
         });
-    </script>
+    </script> -->
