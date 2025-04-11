@@ -5,6 +5,7 @@ const invController = require("../controllers/invControllers.js")
 const invValidate = require("../utilities/inventory-validation.js")
 const utilities = require("../utilities")
 const invCont = require("../controllers/invControllers.js")
+const validate = require("../utilities/account-validation.js")
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", invController.buildByClassificationId);
@@ -43,4 +44,15 @@ router.post(
     invValidate.checkInventoryData,
     utilities.handleErrors(invController.addInventory)
 )
+
+// route for delete confirmation view
+router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteView))
+
+// Process delete request
+router.post("/delete", validate.checkAdminEmployee, utilities.handleErrors(invController.deleteItem))
+
+// Lougout
+// router.get("/logout", accountController.logoutAccount)
+
 module.exports = router;
+

@@ -57,7 +57,7 @@ Util.buildClassificationGrid = async function (data) {
         })
         grid += '</ul>'
     } else {
-        grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+        grid = '<p class="notice">Sorry, no matching vehicles could be found.</p>'
     }
     return grid
 }
@@ -72,10 +72,10 @@ Util.buildVehicleHTML = async function (vehicle) {
         html = '<div class="vehicle-detail">'
 
         html += '<div class="vehicle-img">'
-        html += `<img src="${vehicle.inv_imgage}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">`
+        html += `<img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">`
         html += '</div>'
 
-        html += 'div class="vehicle-info">'
+        html += '<div class="vehicle-info">'
 
         html += `<p class="vehicle-price">$${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>`
 
@@ -134,7 +134,7 @@ Util.checkJWTToken = (req, res, next) => {
       process.env.ACCESS_TOKEN_SECRET,
       function (err, accountData) {
        if (err) {
-        req.flash("Please log in")
+        req.flash("notice", "Please log in")
         res.clearCookie("jwt")
         return res.redirect("/account/login")
        }

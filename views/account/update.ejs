@@ -1,0 +1,79 @@
+<div id="wrapper">
+    
+    <main>
+        <h1><%- title %></h1>
+
+        <% if (messages) { %>
+            <% if (typeof messages === 'object' && Object.keys(messages).length > 0) { %>
+                <div class="notice">
+                    <% Object.values(messages).forEach(message => { %>
+                        <p><%= message %></p>
+                    <% }) %>
+                </div>
+            <% } else if (typeof messages === 'string' && messages.length > 0) { %>
+                <div class="notice">
+                    <p><%= messages %></p>
+                </div>
+            <% } %>
+        <% } %>
+
+        <% if (errors) { %>
+            <ul class="notice">
+                <% errors.array().forEach(error => { %>
+                    <li><%= error.msg %></li>
+                <% }) %>
+            </ul>
+        <% } %>
+
+        <section class="account-update">
+            <h2>Account Update</h2>
+            <form id="updateForm" action="/account/update" method="post">
+                <div class="form-group">
+                    <label for="account_firstname">First Name:</label>
+                    <input type="text" id="account_firstname" name="account_firstname" required 
+                        value="<%= locals.account_firstname || accountData.account_firstname %>">
+                </div>
+        
+                <div class="form-group">
+                    <label for="account_lastname">Last Name:</label>
+                    <input type="text" id="account_lastname" name="account_lastname" required 
+                        value="<%= locals.account_lastname || accountData.account_lastname %>">
+                </div>
+        
+                <div class="form-group">
+                    <label for="account_email">Email:</label>
+                    <input type="email" id="account_email" name="account_email" required 
+                        value="<%= locals.account_email || accountData.account_email %>">
+                </div>
+        
+                <input type="hidden" name="account_id" 
+                    value="<%= accountData.account_id %>">
+                
+                <div class="form-group button-group">
+                    <input type="submit" value="Update Account" class="btn">
+                </div>
+            </form>
+        </section>
+        
+        <section class="password-update">
+            <h2>Change Password</h2>
+            <p class="form-info">Enter a new password below to change your current password. Remember that passwords must be at least 12 characters and contain at least 1 capital letter, 1 number and 1 special character.</p>
+            
+            <form id="passwordForm" action="/account/update-password" method="post">
+                <div class="form-group">
+                    <label for="account_password">New Password:</label>
+                    <input type="password" id="account_password" name="account_password" 
+                        required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+                </div>
+        
+                <input type="hidden" name="account_id" 
+                    value="<%= accountData.account_id %>">
+                
+                <div class="form-group button-group">
+                    <input type="submit" value="Change Password" class="btn">
+                </div>
+            </form>
+        </section>
+    </main>
+
+</div>

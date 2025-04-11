@@ -1,0 +1,60 @@
+<div class="main-content">
+    <h1>Delete Vehicle</h1>
+    <% if (messages) { %>
+        <div class="flash-message">
+            <% if (typeof messages==='object' ) { %>
+                <% Object.keys(messages).forEach(function(type) { %>
+                    <% messages[type].forEach(function(message) { %>
+                        <p>
+                            <%= message %>
+                        </p>
+                        <% }) %>
+                            <% }) %>
+                                <% } %>
+        </div>
+        <% } %>
+            <% if (errors) { %>
+                <ul class="notice errors">
+                    <% errors.array().forEach(error=> { %>
+                        <li>
+                            <%= error.msg %>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } %>
+
+                    <p>Confirm Deletion - The delete is permanent.</p>
+
+                    <form id="deleteForm" action="/inv/delete" method="post">
+                        <input type="hidden" name="inv_id" value="<%= inv_id %>">
+
+                        <div class="form-group">
+                            <label for="inv_make">Make:</label>
+                            <input type="text" id="inv_make" name="inv_make"
+                                value="<%= locals.inv_make ? inv_make : '' %>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inv_model">Model:</label>
+                            <input type="text" id="inv_model" name="inv_model"
+                                value="<%= locals.inv_model ? inv_model : '' %>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inv_year">Year:</label>
+                            <input type="number" id="inv_year" name="inv_year"
+                                value="<%= locals.inv_year ? inv_year : '' %>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inv_price">Price:</label>
+                            <input type="number" id="inv_price" name="inv_price"
+                                value="<%= locals.inv_price ? inv_price : '' %>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit">Delete</button>
+                        </div>
+                    </form>
+</div>
+<%- include('../partials/footer') %>
