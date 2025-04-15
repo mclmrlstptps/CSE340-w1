@@ -19,27 +19,46 @@ invCont.buildByClassificationId = async function (req, res, next) {
   })
 }
 
+
 /* ***************************
- *  Build inventory by detail view
+ *  Build inventory by detail view with reviews
  * ************************** */
 invCont.buildByInventoryId = async function (req, res, next) {
   const inv_id = req.params.invId
   const data = await invModel.getInventoryByInventoryId(inv_id)
   let nav = await utilities.getNav()
 
-
-  if (!data || data.length === 0) {
+  if (!data) {
     req.flash("notice", "Sorry we couldn't find that vehicle")
     return res.redirect("/inv")
   }
 
-  const vehicleData = data[0]
+  // Get reviews for this vehicle
+  const reviewModel = require("../models/review-model")
+  const reviews = await reviewModel.getReviewsByVehicleId(inv_id)
+  const reviewStats = await reviewModel.getReviewStats(inv_id)
+
+  // Check if logged-in user has already reviewed this vehicle
+  let userHasReviewed = false
+  if (res.locals.loggedin) {
+    userHasReviewed = await reviewModel.checkExistingReview(
+      inv_id,
+      res.locals.accountData.account_id
+    )
+  }
+
+  const vehicleData = data
   const vehicleName = `${vehicleData.inv_make} ${vehicleData.inv_model}`
 
   res.render("inventory/detail", {
     title: vehicleName,
     nav,
-    vehicle: vehicleData
+    vehicle: vehicleData,
+    reviews: reviews,
+    reviewStats: reviewStats,
+    userHasReviewed: userHasReviewed,
+    loggedin: res.locals.loggedin,
+    messages: req.flash()
   })
 }
 
@@ -346,5 +365,7 @@ invCont.deleteItem = async function (req, res, next) {
     res.redirect(`/inv/delete/${inv_id}`)
   }
 }
+
+
 
 module.exports = invCont

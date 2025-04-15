@@ -19,6 +19,7 @@ const accountRoute = require("./routes/accountRoute")
 const flash = require('connect-flash')
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+const reviewRoute = require("./routes/reviewRoute")
 
 
 /* ***********************
@@ -59,6 +60,9 @@ app.set("layout", "layouts/layout") // not at views root
  * Routes
  *************************/
 app.use(static)
+
+// Review Route
+app.use("/reviews", reviewRoute)
 
 // Index Route
 

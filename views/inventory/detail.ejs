@@ -1,62 +1,155 @@
-<!-- Heading section -->
-<% if (title) { %>
-    <h1><%= title %></h1>
-    <% } else {
-      res.redirect('/')
-    } %>
+<div id="wrapper">
+  <main>
+    <h1><%- title %></h1>
 
-
-<!-- Message section -->
-<%# messages() %>
-
-<!-- Vehicle details section -->
- <div class="vehicle-detail-container">
-    <!-- Images -->
-    <div class="vehicle-image">
-        <img src="<%= vehicle.inv_image %>" alt="Image of <%= vehicle.inv_make %> <%= vehicle.inv_model %>">
-    </div>
-
-     <!-- Info section -->
-    <div class="vehicle-info-container">
-          <div class="vehicle-price">
-              <h2>$<%= new Intl.NumberFormat('en-US').format(vehicle.inv_price)%></h2>
-          </div>
-      
-
-      <div class="vehicle-primary-details">
-          <p class="year-make-model"><%= vehicle.inv_year %> <%= vehicle.inv_make %> <%= vehicle.inv_model %></p>
-          <p class="mileage"><strong>Mileage:</strong> <%= new Intl.NumberFormat('en-US').format(vehicle.inv_miles) %></p>
+    <% if (messages) { %>
+      <% if (typeof messages==='object' && Object.keys(messages).length> 0) { %>
+        <div class="notice">
+          <% Object.values(messages).forEach(message=> { %>
+            <p>
+              <%= message %>
+            </p>
+            <% }) %>
         </div>
+        <% } else if (typeof messages==='string' && messages.length> 0) { %>
+          <div class="notice">
+            <p>
+              <%= messages %>
+            </p>
+          </div>
+          <% } %>
+            <% } %>
 
-      <div class="vehicle-description">
-          <h3>Description</h3>
-          <p><%= vehicle.inv_description %></p>
-      </div>
+              <div class="vehicle-detail-container">
+                <div class="vehicle-image">
+                  <img src="<%= vehicle.inv_image %>" alt="Image of <%= vehicle.inv_make %> <%= vehicle.inv_model %>">
+                </div>
 
-      <div class="vehicle-specs">
-          <h3>Vehicle Details</h3>
-          <table>
-            <tr>
-              <td><strong>Color:</strong></td>
-              <td><%= vehicle.inv_color %></td>
-            </tr>
-            <tr>
-              <td><strong>Interior Color:</strong></td>
-              <td><%= vehicle.inv_interior %></td>
-            </tr>
-            <tr>
-              <td><strong>Transmission:</strong></td>
-              <td><%= vehicle.inv_transmission %></td>
-            </tr>
-            <tr>
-              <td><strong>Engine:</strong></td>
-              <td><%= vehicle.inv_engine %></td>
-            </tr>
-            <tr>
-              <td><strong>Body Style:</strong></td>
-              <td><%= vehicle.classification_name %></td>
-            </tr>
-          </table>
-      </div>    
-  </div> 
- </div>
+                <div class="vehicle-info-container">
+                  <div class="vehicle-price">
+                    <h2>$<%= new Intl.NumberFormat('en-US').format(vehicle.inv_price) %>
+                    </h2>
+                  </div>
+
+                  <div class="vehicle-primary-details">
+                    <p class="year-make-model">
+                      <%= vehicle.inv_year %>
+                        <%= vehicle.inv_make %>
+                          <%= vehicle.inv_model %>
+                    </p>
+                    <p class="mileage">
+                      <%= new Intl.NumberFormat('en-US').format(vehicle.inv_miles) %> miles
+                    </p>
+                  </div>
+
+                  <div class="vehicle-description">
+                    <h3>Description</h3>
+                    <p>
+                      <%= vehicle.inv_description %>
+                    </p>
+                  </div>
+
+                  <div class="vehicle-specs">
+                    <h3>Specifications</h3>
+                    <table>
+                      <tr>
+                        <td>Color:</td>
+                        <td>
+                          <%= vehicle.inv_color %>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Vehicle Reviews Section -->
+              <section class="vehicle-reviews">
+                <h2>Customer Reviews</h2>
+
+                <div class="review-stats">
+                  <% if (reviewStats.review_count> 0) { %>
+                    <p><strong>Rating:</strong>
+                      <%= reviewStats.average_rating %>/5 (<%= reviewStats.review_count %> reviews)
+                    </p>
+                    <% } else { %>
+                      <p>No reviews yet. Be the first to review this vehicle!</p>
+                      <% } %>
+                </div>
+
+                <% if (loggedin && !userHasReviewed) { %>
+                  <div class="review-form">
+                    <h3>Write a Review</h3>
+                    <form action="/reviews/add" method="post">
+                      <div class="form-group">
+                        <label for="review_rating">Rating (1-5):</label>
+                        <select name="review_rating" id="review_rating" required>
+                          <option value="">Select a rating</option>
+                          <option value="5">5 - Excellent</option>
+                          <option value="4">4 - Very Good</option>
+                          <option value="3">3 - Average</option>
+                          <option value="2">2 - Poor</option>
+                          <option value="1">1 - Very Poor</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="review_text">Your Review:</label>
+                        <textarea id="review_text" name="review_text" rows="5" required minlength="10"></textarea>
+                      </div>
+
+                      <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>">
+
+                      <div class="form-group button-group">
+                        <input type="submit" value="Submit Review" class="btn">
+                      </div>
+                    </form>
+                  </div>
+                  <% } else if (!loggedin) { %>
+                    <p><a href="/account/login">Login</a> to write a review.</p>
+                    <% } %>
+
+                      <div class="reviews-list">
+                        <% if (reviews && reviews.length> 0) { %>
+                          <h3>All Reviews</h3>
+                          <% reviews.forEach(review=> { %>
+                            <div class="review-item">
+                              <div class="review-header">
+                                <p class="review-author"><strong>
+                                    <%= review.account_firstname %>
+                                      <%= review.account_lastname %>
+                                  </strong></p>
+                                <p class="review-rating">
+                                  <% for(let i=0; i < 5; i++) { %>
+                                    <% if (i < review.review_rating) { %>
+                                      ★
+                                      <% } else { %>
+                                        ☆
+                                        <% } %>
+                                          <% } %>
+                                </p>
+                                <p class="review-date">
+                                  <%= new Date(review.review_date).toLocaleDateString() %>
+                                </p>
+                              </div>
+                              <p class="review-text">
+                                <%= review.review_text %>
+                              </p>
+
+                              <% if (loggedin && review.account_id===locals.accountData.account_id) { %>
+                                <div class="review-actions">
+                                  <form action="/reviews/delete" method="post">
+                                    <input type="hidden" name="review_id" value="<%= review.review_id %>">
+                                    <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>">
+                                    <button type="submit" class="btn-delete">Delete Review</button>
+                                  </form>
+                                </div>
+                                <% } %>
+                            </div>
+                            <% }) %>
+                              <% } %>
+                      </div>
+              </section>
+  </main>
+
+</div>
