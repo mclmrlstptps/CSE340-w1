@@ -97,15 +97,14 @@ app.use(async (err, req, res, next) => {
  * Local Server Information
  * Values from .env (environment) file
  *************************/
-const port = process.env.PORT || 10000
-// The host is only needed for local development
-const host = process.env.HOST || "0.0.0.0"
+const port = process.env.PORT
+const host = process.env.HOST
 
 /* ***********************
  * Log statement to confirm server operation
  *************************/
 app.listen(port, () => {
-  console.log(`app listening on port ${port}`)
+  console.log(`app listening on ${host}:${port}`)
 })
 
 
